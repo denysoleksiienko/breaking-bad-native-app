@@ -8,12 +8,22 @@ import {CharacterGrid} from './src/components/CharacterGrid';
 
 export const App = () => {
   const [items, setItems] = React.useState([]);
+  const [loading, setLoading] = React.useState(true);
 
   React.useEffect(() => {
     const fetchItems = async () => {
-      const response = await axios('https://breakingbadapi.com/api/characters');
-      setItems(response.data);
+      try {
+        const response = await axios(
+          'https://breakingbadapi.com/api/characters',
+        );
+        setItems(response.data);
+      } catch (error) {
+        throw new Error(error);
+      } finally {
+        setLoading(false);
+      }
     };
+
     fetchItems();
   }, []);
 
@@ -23,7 +33,7 @@ export const App = () => {
         source={require('./src/assets/bg.jpg')}
         style={styles.image}>
         <Header />
-        <CharacterGrid items={items} />
+        <CharacterGrid loading={loading} items={items} />
       </ImageBackground>
     </View>
   );

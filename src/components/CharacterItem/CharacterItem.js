@@ -1,10 +1,10 @@
 import React from 'react';
 import {View, StyleSheet, Text} from 'react-native';
 
-export const CharacterItem = ({name}) => {
+export const CharacterItem = ({item}) => {
   return (
     <View style={styles.item}>
-      <Text style={styles.name}>{name}</Text>
+      <Text style={styles.name}>{item.name}</Text>
     </View>
   );
 };
