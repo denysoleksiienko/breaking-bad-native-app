@@ -4,17 +4,19 @@ import axios from 'axios';
 import {View, StyleSheet, ImageBackground} from 'react-native';
 
 import {Header} from './src/components/Header';
+import {Search} from './src/components/Search';
 import {CharacterGrid} from './src/components/CharacterGrid';
 
 export const App = () => {
   const [items, setItems] = React.useState([]);
   const [loading, setLoading] = React.useState(true);
+  const [query, setQuery] = React.useState('');
 
   React.useEffect(() => {
     const fetchItems = async () => {
       try {
         const response = await axios(
-          'https://breakingbadapi.com/api/characters',
+          `https://breakingbadapi.com/api/characters?name=${query}`,
         );
         setItems(response.data);
       } catch (error) {
@@ -25,7 +27,7 @@ export const App = () => {
     };
 
     fetchItems();
-  }, []);
+  }, [query]);
 
   return (
     <View style={styles.container}>
@@ -33,6 +35,7 @@ export const App = () => {
         source={require('./src/assets/bg.jpg')}
         style={styles.image}>
         <Header />
+        <Search getQuery={(q) => setQuery(q)} />
         <CharacterGrid loading={loading} items={items} />
       </ImageBackground>
     </View>
