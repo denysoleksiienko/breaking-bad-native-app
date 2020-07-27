@@ -3,10 +3,10 @@ import axios from 'axios';
 
 import {View, StyleSheet, ImageBackground} from 'react-native';
 
-import {Header} from './src/components/Header/Header';
-import {CharacterGrid} from './src/components/CharacterGrid/CharacterGrid';
+import {Header} from './src/components/Header';
+import {CharacterGrid} from './src/components/CharacterGrid';
 
-const App = () => {
+export const App = () => {
   const [items, setItems] = React.useState([]);
 
   React.useEffect(() => {
@@ -40,5 +40,3 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 });
-
-export default App;
